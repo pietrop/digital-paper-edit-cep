@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="6.0" ExtensionBundleId="com.autoedit2.it" ExtensionBundleVersion="1.0.0" ExtensionBundleName="autoEdit2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ExtensionManifest Version="6.0" ExtensionBundleId="com.dpe.it" ExtensionBundleVersion="1.0.0" ExtensionBundleName="dpe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
-		<Extension Id="com.autoedit2.it" Version="1.0.2" />
+		<Extension Id="com.dpe.it" Version="1.0.2" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
@@ -16,10 +16,10 @@
 	</ExecutionEnvironment>
 
 	<DispatchInfoList>
-		<Extension Id="com.autoedit2.it">
+		<Extension Id="com.dpe.it">
 			<DispatchInfo >
 				<Resources>
-					<MainPath>./electron/index.html</MainPath>
+					<MainPath>./node_modules/digital-paper-edit-client/index.html</MainPath>
 					<ScriptPath>./jsx/Premiere.jsx</ScriptPath>
 					<CEFCommandLine>
 						<Parameter>--allow-file-access</Parameter>
@@ -34,7 +34,7 @@
 				</Lifecycle>
 				<UI>
 					<Type>Panel</Type>
-					<Menu>autoEdit2</Menu>
+					<Menu>dpe</Menu>
 					<Geometry>
 						<Size>
 							<Height>300</Height>
