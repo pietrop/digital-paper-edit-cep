@@ -128,8 +128,9 @@ ccextensionsmac/certificate.p12
 # ccextensionsmac/ZXPSignCmd
 
 # Packaged app for Adobe CEP Panel Exchange site submission or distribution.
-dist/com.autoedit2.it.zxp
+dist/com.dpe.it.zxp
 
+dist/
 
 # dotenv ENV var
 .env

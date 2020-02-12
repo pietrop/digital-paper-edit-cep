@@ -12,55 +12,58 @@ _Screenshot of UI - optional_ -->
 
 _Adobe CEP panel info coming soon_
 
+For official [docs on Adobe CEP extensions from Adobe see here](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_9.x/Documentation/CEP%209.0%20HTML%20Extension%20Cookbook.md)
+
+For [unofficial doc notes from autoEdit Adobe CEP Panel's R&D implementation see here](https://autoedit.gitbook.io/documentation/adobe-panel/autoedit-adobe-cep-panel-dev-setup)
+
 ## Setup
 <!-- _stack - optional_
 _How to build and run the code/app_ -->
 
 _TBC_
 
-<!-- # Adobe CEP Panel 
-from make file 
+```env
+ZXPSignCmd_PATH="./ccextensionsmac/ZXPSignCmd"
+COUNTRY_CODE=""
+STATE_OR_PROVINCE=""
+ORGANIZATION="NA"
+COMMON_NAME="NA"
+CERTIFICATE_PASSWORD=""
+CERTIFICATE_OUTPUT_PATH="./ccextensionsmac/certificate.p12"
+INPUT_DIRECTORY="./adobe-panel-build"
+OUTPUT_ZXP="./dist/com.dpe.it.zxp"
+TIMESTAMPS_URL="http://timestamp.digicert.com/"
+GITHUB_TOKEN=""
+TRAVIS_REPO_SLUG=""
+```
 
-setup-cep-panel:
-	@echo "Setting Premiere debug mode to accept unsigned extensions"
-	defaults write com.adobe.CSXS.5 PlayerDebugMode 1
-	defaults write com.adobe.CSXS.6 PlayerDebugMode 1
-	defaults write com.adobe.CSXS.7 PlayerDebugMode 1
-	defaults write com.adobe.CSXS.8 PlayerDebugMode 1
-	@echo "Done, please restart your computer" 
-    
-assemble-cep-panel:
-	@echo "Adobe CEP Panel - Assemble relevant files"
-	# TODO: clear directory  ./packages/cep/build and recreate 
-	rm -rf ./packages/cep/build
-	# TODO: move relevant files from react and electron backend into ./packages/cep/build
-	mkdir -p ./packages/cep/build
-	# eg 
-	# sync-files adobe-panel-src adobe-panel-build 
-	# && sync-files electron adobe-panel-build/electron 
-	# && sync-files lib adobe-panel-build/lib 
-	# &&  sync-files ./package.json adobe-panel-build/package.json 
-	# && sync-files node_modules  adobe-panel-build/node_modules
-    
-    -->
- 
 
-## Usage
+Since Premiere only accepts signed extension, you should [tell it to accept unsigned extensions](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_9.x/Documentation/CEP%209.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions) for development purpuses, by 
+copy pasting the following in terminal
+
+```bash
+defaults write com.adobe.CSXS.8 PlayerDebugMode 1
+```
+
+
+## Usage - development
+
+```
+npm run adobe-panel-dev
+```
+Copies the necessary folders into the system folder for premiere `~/Library/Application\ Support/Adobe/CEP/extensions/dpe-panel/`
+
+Once you open adobe premiere `window` --> `extensions` --> `dpe`
+
+You can then open the local server for the adobe panel which is at http://localhost:8099, there you can see the dev tools inspector and console.
+
+## Usage - production
 
 _TBC_
 
-<!-- 
+<!-- To install the packaged extension in Adobe Premiere, [see user manual instructions](https://autoedit.gitbook.io/digital-paper-edit-user-manual/digital-paper-edit-adobe-panel/install) -->
 
-start-cep-panel: cep-panel-assemble
-	@echo "Adobe CEP Panel start"
-	@echo "make directory for Adobe CEP extensions if not present"
-	mkdir -p ~/Library/Application\ Support/Adobe/CEP/extensions/
-	# TODO: need to decide what to move into Adobe CEP extension folder, ideally jsut content of ./packages/cep/build
-	cd ./packages/cep/build && cp -R $PWD ~/Library/Application\ Support/Adobe/CEP/extensions/autoedit2-panel
-	# sync-files adobe-panel-src ~/Library/Application\\ Support/Adobe/CEP/extensions/autoedit2-panel
-	
-    
-     -->
+
  
 
 ## System Architecture
@@ -76,21 +79,29 @@ Adobe CEP paenl
 _Coding style convention ref optional, eg which linter to use_
 
 _Linting, github pre-push hook - optional_ -->
-
-_TBC_
  
+- node `v11.15.0`
+- npm `6.7.0`
+
+if you are using nvm as your package manager you can just run 
+
+```
+nvm use
+```
+To set to the node version `v11.15.0`
 
 ## Build
 <!-- _How to run build_ -->
 
 _TBC_
 
- <!-- 
- 	
-build-cep-panel: build-react assemble-cep-panel
-	@echo "Adobe CEP Panel build"
-	@echo "Adobe CEP Panel - packaging and code signing for distribution"
-	# node ./package/cep/scripts/sign-and-package-adobe-panel.js
+<!-- ```
+npm run adobe-panel-build
+``` -->
+
+<!-- ```
+npm run adobe-panel-package-sign-build
+``` -->
 
  -->
 
@@ -103,6 +114,11 @@ build-cep-panel: build-react assemble-cep-panel
 <!-- _How to deploy the code/app into test/staging/production_ -->
 
 _TBC_
+
+<!-- Travis or  
+ ```
+npm run adobe-panel-package-sign-build
+``` -->
 
 <!-- Travis into releases + manual adobe exchange? - optional -->
 
@@ -117,4 +133,4 @@ See [LICENCE](./LICENCE.md)
 
 ## Legal Disclaimer
 
-_Despite using React and DraftJs, the BBC is not promoting any Facebook products or other commercial interest._
+_Despite using React and DraftJs, this repo is not promoting any Facebook products or other commercial interest._

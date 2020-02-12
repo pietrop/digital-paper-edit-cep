@@ -3,6 +3,9 @@
  * https://autoedit.gitbook.io/documentation/adobe-panel/autoedit-adobe-cep-panel-dev-setup
  * and https://autoedit.gitbook.io/documentation/adobe-panel/adobe-cep-jsx-functions-for-autoedit-adobe-panel
  */
+// from https://community.adobe.com/t5/premiere-pro/jsx-intermittently-getting-json-is-undefined-alert/td-p/9500726
+// adding support for json 
+//@include ./json2.jsx
 if (typeof $ == "undefined") $ = {};
 $._PPP = {
   say: function(something) {
@@ -127,7 +130,7 @@ $._PPP = {
 
   get_user_data_path: function() {
     //  alert(Folder.userData.fsName+"/autoEdit2");
-    return Folder.userData.fsName + "/autoEdit2";
+    return Folder.userData.fsName + "/dpe-panel";
   },
 
   open_file_in_source_monitor_and_play_if_present: function(options) {
