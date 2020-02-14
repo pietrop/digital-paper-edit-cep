@@ -130,7 +130,7 @@ $._PPP = {
 
   get_user_data_path: function() {
     //  alert(Folder.userData.fsName+"/autoEdit2");
-    return Folder.userData.fsName + "/dpe-panel";
+    return Folder.userData.fsName + "/digital-paper-edit-electron";
   },
 
   open_file_in_source_monitor_and_play_if_present: function(options) {

@@ -1,68 +1,77 @@
 const fs = require("fs");
 const path = require("path");
-const electron = require("electron");
-const downloadDeepSpeechModel = require("deepspeech-node-wrapper")
-  .downloadDeepSpeechModel;
-const appUserDataPath = electron.remote.app.getPath("userData");
+// const electron = require("electron");
+// const downloadDeepSpeechModel = require("deepspeech-node-wrapper")
+//   .downloadDeepSpeechModel;
+
+// const appUserDataPath = electron.remote.app.getPath("userData");
+
+// TODO: modify this
+let appUserDataPath = __dirname
+window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`, function (adobeDataPath){
+  // const appUserDataPath = __dirname;
+  appUserDataPath = adobeDataPath;
+  console.log('appUserDataPath',appUserDataPath)
+})
 // TODO: consider moving deepspeech logic to a separate file from credentials.js?
 
-function getDeepSpeechModelFolderName( modelVersion = "0.6.0") {
-  return `deepspeech-${modelVersion}-models`;
-}
+// function getDeepSpeechModelFolderName( modelVersion = "0.6.0") {
+//   return `deepspeech-${modelVersion}-models`;
+// }
 
-function getDeepSpeechModelPath(deepspeechModelVersion) {
-  return path.join(appUserDataPath, getDeepSpeechModelFolderName(deepspeechModelVersion));
-}
+// function getDeepSpeechModelPath(deepspeechModelVersion) {
+//   return path.join(appUserDataPath, getDeepSpeechModelFolderName(deepspeechModelVersion));
+// }
 
-// TODO: add some way to check if model,
-// folder and necessary files,
-// are set in user folder in application libary path
-// Files required described in README of https://github.com/pietrop/deepspeech-node-wrapper
-function getIsDeepspeechModelSet() {
-  // eg check if this path exists?
-  const deepSpeechModelPath = getDeepSpeechModelPath();
-  const isDeepSpeechModelPath = fs.existsSync(deepSpeechModelPath);
-  // Extra checks to make sure the files needed by the model exists
-  //  "output_graph.pbmm"
-  const outputGraphPbmmPath = path.join(
-    deepSpeechModelPath,
-    "output_graph.pbmm"
-  );
-  const isOutputGraphPbmmPath = fs.existsSync(outputGraphPbmmPath);
-  //  "lm.binary"
-  const lmBinaryPath = path.join(deepSpeechModelPath, "lm.binary");
-  const islBinaryPath = fs.existsSync(lmBinaryPath);
-  // "trie"
-  const triePath = path.join(deepSpeechModelPath, "trie");
-  const isTriePath = fs.existsSync(triePath);
+// // TODO: add some way to check if model,
+// // folder and necessary files,
+// // are set in user folder in application libary path
+// // Files required described in README of https://github.com/pietrop/deepspeech-node-wrapper
+// function getIsDeepspeechModelSet() {
+//   // eg check if this path exists?
+//   const deepSpeechModelPath = getDeepSpeechModelPath();
+//   const isDeepSpeechModelPath = fs.existsSync(deepSpeechModelPath);
+//   // Extra checks to make sure the files needed by the model exists
+//   //  "output_graph.pbmm"
+//   const outputGraphPbmmPath = path.join(
+//     deepSpeechModelPath,
+//     "output_graph.pbmm"
+//   );
+//   const isOutputGraphPbmmPath = fs.existsSync(outputGraphPbmmPath);
+//   //  "lm.binary"
+//   const lmBinaryPath = path.join(deepSpeechModelPath, "lm.binary");
+//   const islBinaryPath = fs.existsSync(lmBinaryPath);
+//   // "trie"
+//   const triePath = path.join(deepSpeechModelPath, "trie");
+//   const isTriePath = fs.existsSync(triePath);
 
-  return (
-    isDeepSpeechModelPath &&
-    isTriePath &&
-    islBinaryPath &&
-    isOutputGraphPbmmPath
-  );
-}
+//   return (
+//     isDeepSpeechModelPath &&
+//     isTriePath &&
+//     islBinaryPath &&
+//     isOutputGraphPbmmPath
+//   );
+// }
 
-function setDeepSpeechModel() {
-  console.log("setDeepSpeechModel");
-  const outputPath = path.join(appUserDataPath)//getDeepSpeechModelPath();
+// function setDeepSpeechModel() {
+//   console.log("setDeepSpeechModel");
+//   const outputPath = path.join(appUserDataPath)//getDeepSpeechModelPath();
 
-  return new Promise((resolve, reject) => {
-  downloadDeepSpeechModel(outputPath)
-    .then(res => {
-      console.log("res", res);
-      resolve(res);
-    })
-    .catch(error => {
-      console.error(
-        "error setting up the Deepspeech model, during download",
-        error
-      );
-      reject(error)
-    });
-  })
-}
+//   return new Promise((resolve, reject) => {
+//   downloadDeepSpeechModel(outputPath)
+//     .then(res => {
+//       console.log("res", res);
+//       resolve(res);
+//     })
+//     .catch(error => {
+//       console.error(
+//         "error setting up the Deepspeech model, during download",
+//         error
+//       );
+//       reject(error)
+//     });
+//   })
+// }
 
 const credentialsTemplate = {
   provider: "",
@@ -117,6 +126,6 @@ function areCredentialsSet(provider) {
 module.exports.setCredentials = setCredentials;
 module.exports.getCredentials = getCredentials;
 module.exports.areCredentialsSet = areCredentialsSet;
-module.exports.getIsDeepspeechModelSet = getIsDeepspeechModelSet;
-module.exports.setDeepSpeechModel = setDeepSpeechModel;
-module.exports.getDeepSpeechModelPath = getDeepSpeechModelPath;
+// module.exports.getIsDeepspeechModelSet = getIsDeepspeechModelSet;
+// module.exports.setDeepSpeechModel = setDeepSpeechModel;
+// module.exports.getDeepSpeechModelPath = getDeepSpeechModelPath;

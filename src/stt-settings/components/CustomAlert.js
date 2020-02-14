@@ -11,8 +11,8 @@ const Alert = require('react-bootstrap/Alert');
 const getDefaultStt = require('./default-stt.js').getDefaultStt;
 const setDefaultStt = require('./default-stt.js').setDefaultStt;
 const speechmaticsLanguages = require('./language-options/speechmatics.json');
-const { app } = require('electron').remote;
-const appVersion = app.getVersion();
+// const { app } = require('electron').remote;
+// const appVersion = app.getVersion();
 
 class CustomAlert extends React.Component {
   constructor(props) {

@@ -1,20 +1,20 @@
 /* eslint-disable no-case-declarations */
 const fs = require("fs");
 const path = require("path");
-const { app } = require("electron").remote;
+// const { app } = require("electron").remote;
 const convertToAudio = require("../convert-to-audio/index.js");
 const convertAssemblyAIToDpeJson = require("./assemblyai/assemblyai-to-dpe/index.js");
 const assemblyAiStt = require("./assemblyai/index");
 const speechmaticsSTT = require("./speechmatics/index.js");
 const convertSpeechmaticsDpe = require("./speechmatics/speechmatics-to-dpe/index.js");
 const pocketsphinxSTT = require("./pocketsphinx-stt/index.js");
-const deepspeechSTT =  require("./deepspeech/index.js");
+// const deepspeechSTT =  require("./deepspeech/index.js");
+// const { getDeepSpeechModelPath } = require("../../../stt-settings/credentials.js");
 const convertPocketsphinxOutputToDpe = require("./pocketsphinx-stt/pocketsphinx-to-dpe/index.js");
 const { getDefaultStt } = require("../../../stt-settings/default-stt.js");
-const { getDeepSpeechModelPath } = require("../../../stt-settings/credentials.js");
 
-const dataPath = app.getPath("userData");
-const mediaDir = path.join(dataPath, "media");
+
+
 
 function getDefaultSttAndLanguage() {
   // const pathToDefaultStt = path.join(dataPath, 'default-stt.json');
@@ -26,6 +26,14 @@ function getDefaultSttAndLanguage() {
 }
 
 const transcriber = async inputFilePath => {
+  // const dataPath = app.getPath("userData");
+
+let mediaDir;
+window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`,  (adobeDataPath) => {
+   mediaDir = path.join(adobeDataPath, "media");
+   console.log('mediaDir', mediaDir)
+})
+
   // default stt engine and language
   const { provider, language } = getDefaultSttAndLanguage();
   if (!provider) {
@@ -90,15 +98,15 @@ const transcriber = async inputFilePath => {
       return response;
     case "deepspeech":
       console.log('transcriber:deepspeech')
-      const deepspeechModelsPath = getDeepSpeechModelPath();
-      const deepspeechTranscript = await deepspeechSTT(newAudioFile, deepspeechModelsPath);
-      const { dpeResult } = await deepspeechTranscript;
-      console.log("deepspeechTranscript", deepspeechTranscript, dpeResult);
-      response.transcript = dpeResult;
-      response.clipName = inputFileNameWithExtension;
-      console.log("deepspeechTranscript", response);
-      response.sttEngine =  "deepspeech";
-      return response;
+      // const deepspeechModelsPath = getDeepSpeechModelPath();
+      // const deepspeechTranscript = await deepspeechSTT(newAudioFile, deepspeechModelsPath);
+      // const { dpeResult } = await deepspeechTranscript;
+      // console.log("deepspeechTranscript", deepspeechTranscript, dpeResult);
+      // response.transcript = dpeResult;
+      // response.clipName = inputFileNameWithExtension;
+      // console.log("deepspeechTranscript", response);
+      // response.sttEngine =  "deepspeech";
+      // return response;
     default:
       throw new Error(
         "A valid STT engine wasn't specified in the transcriber module"

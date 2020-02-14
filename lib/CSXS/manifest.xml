@@ -19,7 +19,7 @@
 		<Extension Id="com.dpe.it">
 			<DispatchInfo >
 				<Resources>
-					<MainPath>./node_modules/@pietrop/digital-paper-edit-client/index.html</MainPath>
+					<MainPath>./digital-paper-edit-client/index.html</MainPath>
 					<ScriptPath>./jsx/Premiere.jsx</ScriptPath>
 					<CEFCommandLine>
 						<Parameter>--allow-file-access</Parameter>

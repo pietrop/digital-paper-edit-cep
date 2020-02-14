@@ -1,16 +1,25 @@
 /* eslint-disable class-methods-use-this */
 const fs = require('fs');
 const path = require('path');
-const { app } = require('electron').remote;
-const dataPath = app.getPath('userData');
+// const { app } = require('electron').remote;
+// const dataPath = app.getPath('userData');
 
 const db = require('./dbWrapper.js');
-const mediaDir = path.join(dataPath, 'media');
+// const DBWrapper = require('./dbWrapper.js');
+// const db = new DBWrapper();
+// TODO:
+
+// const mediaDir = path.join(dataPath, 'media');
+const mediaDir = path.join(__dirname, 'media');
 
 const transcribe = require('./lib/transcriber');
 const convertToVideo = require('./lib/convert-to-video');
 const { readMetadataForEDL } = require('./lib/av-metadata-reader/index.js');
-class ElectronWrapper {
+
+class AdobeCEPWrapper {
+  constructor() {
+    
+  }
   /**
    * Projects
    */
@@ -540,4 +549,4 @@ class ElectronWrapper {
   }
 }
 
-module.exports = ElectronWrapper;
+module.exports = AdobeCEPWrapper;

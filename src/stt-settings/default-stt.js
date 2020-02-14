@@ -1,7 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const electron = require('electron');
-const appUserDataPath = electron.remote.app.getPath('userData');
+// const electron = require('electron');
+// const appUserDataPath = electron.remote.app.getPath('userData');
+
+// TODO: modify this to use user data path name
+let appUserDataPath = __dirname
+window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`, function (adobeDataPath){
+  // const appUserDataPath = __dirname;
+  appUserDataPath = adobeDataPath;
+  console.log('appUserDataPath',appUserDataPath)
+})
+
 
 const defaultSttTemplate = {
   provider: '',
