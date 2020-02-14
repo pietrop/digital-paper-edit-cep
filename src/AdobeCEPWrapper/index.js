@@ -1,20 +1,11 @@
 /* eslint-disable class-methods-use-this */
 const fs = require('fs');
 const path = require('path');
-// const { app } = require('electron').remote;
-// const dataPath = app.getPath('userData');
-
 const db = require('./dbWrapper.js');
-// const DBWrapper = require('./dbWrapper.js');
-// const db = new DBWrapper();
-// TODO:
-
-// const mediaDir = path.join(dataPath, 'media');
-const mediaDir = path.join(__dirname, 'media');
-
 const transcribe = require('./lib/transcriber');
 const convertToVideo = require('./lib/convert-to-video');
 const { readMetadataForEDL } = require('./lib/av-metadata-reader/index.js');
+const getUserDataPath = require('./get-user-data-path.js');
 
 class AdobeCEPWrapper {
   constructor() {
@@ -99,10 +90,17 @@ class AdobeCEPWrapper {
     const newTranscript = db.create('transcripts', newTranscriptData);
     const transcriptId = newTranscript._id;
     newTranscript.id = transcriptId;
+    // TODO: try catch around getUserDataPath;
+    const adobeDataPath = await getUserDataPath();
+    const mediaDir = await path.join(adobeDataPath, "media");
+    //   check media folder exits
+    if (!fs.existsSync(mediaDir)) {
+      fs.mkdirSync(mediaDir);
+    }
 
     // Start transcript
     // const transcriptResult = await transcribe(data.path);
-    transcribe(data.path)
+    transcribe(data.path, mediaDir)
       .then(res => {
         console.log('transcribe', res);
         newTranscriptData.status = 'done';

@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 const fs = require("fs");
 const path = require("path");
-// const { app } = require("electron").remote;
 const convertToAudio = require("../convert-to-audio/index.js");
 const convertAssemblyAIToDpeJson = require("./assemblyai/assemblyai-to-dpe/index.js");
 const assemblyAiStt = require("./assemblyai/index");
@@ -17,23 +16,12 @@ const { getDefaultStt } = require("../../../stt-settings/default-stt.js");
 
 
 function getDefaultSttAndLanguage() {
-  // const pathToDefaultStt = path.join(dataPath, 'default-stt.json');
-  // const defaultStt = JSON.parse(fs.readFileSync(pathToDefaultStt).toString());
   const defaultStt = getDefaultStt();
   console.log("getDefaultSttAndLanguage", defaultStt);
-
   return defaultStt;
 }
 
-const transcriber = async inputFilePath => {
-  // const dataPath = app.getPath("userData");
-
-let mediaDir;
-window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`,  (adobeDataPath) => {
-   mediaDir = path.join(adobeDataPath, "media");
-   console.log('mediaDir', mediaDir)
-})
-
+const transcriber = async (inputFilePath, mediaDir) => {
   // default stt engine and language
   const { provider, language } = getDefaultSttAndLanguage();
   if (!provider) {
@@ -47,10 +35,6 @@ window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`,  (adobeDataPath) 
   const defaultSttEngine = provider;
 
   const response = {};
-  //   check media folder exits
-  if (!fs.existsSync(mediaDir)) {
-    fs.mkdirSync(mediaDir);
-  }
 
   // convert to audio
   const inputFileName = path.parse(inputFilePath).name;
@@ -96,6 +80,8 @@ window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`,  (adobeDataPath) 
       console.log("pocketsphinxTranscript", response);
       response.sttEngine =  "pocketsphinx";
       return response;
+    // TODO: remove deepspeech option if in Adobe CEP version for now ?
+    // wile figure out deepspeech and Adobe CEP node version compatibility
     case "deepspeech":
       console.log('transcriber:deepspeech')
       // const deepspeechModelsPath = getDeepSpeechModelPath();

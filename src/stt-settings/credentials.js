@@ -11,7 +11,7 @@ let appUserDataPath = __dirname
 window.__adobe_cep__.evalScript(`$._PPP.get_user_data_path()`, function (adobeDataPath){
   // const appUserDataPath = __dirname;
   appUserDataPath = adobeDataPath;
-  console.log('appUserDataPath',appUserDataPath)
+  console.log('stt-settings - appUserDataPath',appUserDataPath)
 })
 // TODO: consider moving deepspeech logic to a separate file from credentials.js?
 

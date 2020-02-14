@@ -21,8 +21,7 @@
     "adobe-panel-dev": "npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug  && npm run adobe-panel-dev-react-client && npm run adobe-panel-dev-node_modules",
     "adobe-panel-dev:watch": "onchange ./src/** ./package.json ./lib/** -- npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug && echo 'finished syncing'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "adobe-panel-dev-electron": "sync-files electron ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/electron",
-    "adobe-panel-build": "sync-files adobe-panel-src adobe-panel-build && sync-files electron adobe-panel-build/electron && sync-files lib adobe-panel-build/lib &&  sync-files ./package.json adobe-panel-build/package.json && sync-files node_modules  adobe-panel-build/node_modules",
+    "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files lib adobe-panel-build/lib &&  sync-files ./package.json adobe-panel-build/package.json && sync-files node_modules  adobe-panel-build/node_modules",
     "adobe-panel-package-sign-build": "node ./scripts/sign-and-package-adobe-panel.js"
   },
   "repository": {
@@ -37,7 +36,6 @@
   "homepage": "https://github.com/pietrop/digital-paper-edit-cep#readme",
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "electron": "^8.0.0",
     "onchange": "^6.1.0",
     "sync-files": "^1.0.3"
   },
@@ -45,9 +43,7 @@
     "@pietrop/digital-paper-edit-client": "^1.3.3-alpha.24",
     "assemblyai": "^1.0.1",
     "bootstrap-css-only": "^4.3.1",
-    "deepspeech-node-wrapper": "^1.0.6",
     "diskdb": "^0.1.17",
-    "electron-updater": "^4.1.2",
     "ffmpeg-static-electron": "^2.0.1",
     "ffprobe-static-electron": "^2.0.0",
     "fluent-ffmpeg": "^2.1.2",

@@ -40,8 +40,8 @@
         setDeepSpeechModel,
         getDeepSpeechModelPath
       } from "./credentials.js";
-      const { app } = require("electron").remote;
-      const appVersion = app.getVersion();
+      // const { app } = require("electron").remote;
+      // const appVersion = app.getVersion();
 
       class CustomAlert extends React.Component {
         constructor(props) {
@@ -469,7 +469,7 @@
               <br />
               <Breadcrumb>
                 <Breadcrumb.Item active>
-                  Settings - v{appVersion}
+                  Settings 
                 </Breadcrumb.Item>
               </Breadcrumb>
               <Tabs defaultActiveKey={"defaultStt"}>
