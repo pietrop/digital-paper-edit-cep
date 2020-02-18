@@ -27,6 +27,7 @@ $._PPP = {
 
   create_sequence_from_paper_edit: function(options) {
     var options = JSON.parse(options);
+
     var paperEditEvents = options.edlJson.events;
     var sequenceName = options.edlJson.title;
     // Create sequence
@@ -74,17 +75,14 @@ $._PPP = {
         papercut.clipName,
         1
       );
-      // alert(`arrayOfProjectItemsReferencingSomePath.length :: ${JSON.stringify(arrayOfProjectItemsReferencingSomePath)}`)
       var clipInProjectPanel = arrayOfProjectItemsReferencingSomePath[0];
       // TODO: need to had catch for what happens if file is not in project panel.
       // eg either return error, eg alert cannot continue add clip to project panel
       // or look for projec ton file system using path?
-        // alert(`arrayOfProjectItemsReferencingSomePath.length :: ${arrayOfProjectItemsReferencingSomePath.length}`)
       // If it is not in project panel. Use file path to see if it is on file system and can import in premiere
       if (arrayOfProjectItemsReferencingSomePath.length === 0) {
         // if filePath exisists then import into proejct
         var filePath = new File(papercut.filePath);
-        alert(papercut.filePath);
         if (filePath.exists) {
           // app.sourceMonitor.openFilePath(options.filePath);
           // playTc(options.timecode);
