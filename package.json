@@ -1,7 +1,7 @@
 {
   "name": "digital-paper-edit-cep",
   "version": "1.0.0",
-  "description": "Adobe CEP (Common Extensibility Platform) Panel - Premiere Plugin",
+  "description": "Adobe CEP (Common Extensibility Platform) Panel - Premiere Plugin For Digital Paper Edit App",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -21,8 +21,9 @@
     "adobe-panel-dev": "npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug  && npm run adobe-panel-dev-react-client && npm run adobe-panel-dev-node_modules",
     "adobe-panel-dev:watch": "onchange ./src/** ./package.json ./lib/** -- npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug && echo 'finished syncing'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files lib adobe-panel-build/lib &&  sync-files ./package.json adobe-panel-build/package.json && sync-files node_modules  adobe-panel-build/node_modules",
-    "adobe-panel-package-sign-build": "node ./scripts/sign-and-package-adobe-panel.js"
+    "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files .debug adobe-panel-build/.debug &&  sync-files ./package.json adobe-panel-build/package.json && sync-files src  adobe-panel-build/src &&  sync-files node_modules adobe-panel-build/node_modules && sync-files node_modules/@pietrop/digital-paper-edit-client adobe-panel-build/digital-paper-edit-client",
+    "adobe-panel-package-sign-build": "node ./scripts/sign-and-package-adobe-panel.js",
+    "travis_to_github_upload": "node  ./travis_to_github_upload.js"
   },
   "repository": {
     "type": "git",
@@ -36,11 +37,12 @@
   "homepage": "https://github.com/pietrop/digital-paper-edit-cep#readme",
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "gh-release-assets": "^1.1.2",
     "onchange": "^6.1.0",
     "sync-files": "^1.0.3"
   },
   "dependencies": {
-    "@pietrop/digital-paper-edit-client": "^1.3.3-alpha.28",
+    "@pietrop/digital-paper-edit-client": "^1.3.3-alpha.34",
     "assemblyai": "^1.0.1",
     "bootstrap-css-only": "^4.3.1",
     "diskdb": "^0.1.17",

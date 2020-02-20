@@ -7,9 +7,11 @@ install:
   - node --version
   - npm i -g npm@5
   - npm --version
-  # - npm install
+  - npm install
 
 script:
+  - npm run adobe-panel-package-sign-build
+  - npm run travis_to_github_upload
   # TODO: some make command?
   # - npm run test:ci
   # TODO: could also run lit 

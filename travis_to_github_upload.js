@@ -10,6 +10,7 @@ const fetch = require("node-fetch");
 
 var UPLOADTOOL_SUFFIX = packageJson.name;
 var TRAVIS_TAG = packageJson.version;
+var RELEASE_TEXT = packageJson.description;
 console.log("UPLOADTOOL_SUFFIX ", UPLOADTOOL_SUFFIX);
 
 // TEMP Patch for dev, delete following line when done
@@ -102,12 +103,12 @@ function getListOfReleases(TRAVIS_REPO_SLUG) {
  * POST /repos/:owner/:repo/releases
  */
 function createNewRelease(RELEASE_NAME, TRAVIS_REPO_SLUG) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject)=> {
     var body = {
-      tag_name: RELEASE_NAME,
+      tag_name: TRAVIS_TAG,
       target_commitish: "master",
-      name: "test prerelease draft",
-      body: "some text for body",
+      name: RELEASE_NAME,//"test prerelease draft",
+      body: RELEASE_TEXT,
       draft: false,
       prerelease: true
     };
@@ -121,7 +122,12 @@ function createNewRelease(RELEASE_NAME, TRAVIS_REPO_SLUG) {
       }
     })
       .then(res => res.json())
+      // .then(body => {
+      //   // console.log(body)
+      //   return JSON.parse(body)
+      // })
       .then(release => {
+        // console.log('create release', release)
         resolve(release);
         // return upload url for uploading binary to release
         // as well as release id
@@ -188,8 +194,10 @@ function deleteRelease() {
 const ghReleaseAssets = require("gh-release-assets");
 
 async function main() {
-  const releases = await getListOfReleases(TRAVIS_REPO_SLUG);
-  const lastRelease = releases[0];
+  // const releases = await getListOfReleases(TRAVIS_REPO_SLUG);
+  const releases = await createNewRelease(RELEASE_NAME, TRAVIS_REPO_SLUG);
+  // const lastRelease = releases[0];
+  const lastRelease = releases;
   console.log('lastRelease', JSON.stringify(lastRelease,null,2))
   const uploadUrl = lastRelease.upload_url;
   console.log('uploadUrl', uploadUrl)

@@ -19,7 +19,7 @@ TIMESTAMPS_URL="http://timestamp.digicert.com/"
 require('dotenv').config();
 const { exec } = require('child_process');
 
-console.log("Starting script");
+console.log("1. Starting script");
 // package all files and folders needed inside adobe-panel-build folder
 exec('npm run adobe-panel-build', (err, stdout, stderr) => {
     if (err) {
@@ -27,7 +27,7 @@ exec('npm run adobe-panel-build', (err, stdout, stderr) => {
         console.error(err);
         return;
     }
-    console.log('moved files to adobe-panel-build ');
+    console.log('2. moved files to adobe-panel-build ');
 
     // TODO: 
     // delete certificate if present
@@ -35,7 +35,9 @@ exec('npm run adobe-panel-build', (err, stdout, stderr) => {
 
     // creating a certificate
     // ZXPSignCmd -selfSignedCert <countryCode> <stateOrProvince> <organization> <commonName> <password> <outputPath.p12>
-    exec(`${process.env.ZXPSignCmd_PATH} -selfSignedCert ${process.env.COUNTRY_CODE} ${process.env.STATE_OR_PROVINCE} ${process.env.ORGANIZATION} "${process.env.COMMON_NAME}" ${process.env.CERTIFICATE_PASSWORD} ${process.env.CERTIFICATE_OUTPUT_PATH}`, (err, stdout, stderr) => {
+    const command = `${process.env.ZXPSignCmd_PATH} -selfSignedCert ${process.env.COUNTRY_CODE} ${process.env.STATE_OR_PROVINCE} ${process.env.ORGANIZATION} "${process.env.COMMON_NAME}" ${process.env.CERTIFICATE_PASSWORD} ${process.env.CERTIFICATE_OUTPUT_PATH}`;
+    console.log(command)
+    exec(command, (err, stdout, stderr) => {
         if (err) {
             // node couldn't execute the command
             console.error(err);
@@ -44,7 +46,7 @@ exec('npm run adobe-panel-build', (err, stdout, stderr) => {
         // the *entire* stdout and stderr (buffered)
         //   console.log(`stdout: ${stdout}`);
         //   console.log(`stderr: ${stderr}`);
-        console.log('created certificate ');
+        console.log('3. created certificate ');
         // pack and sign the extension 
         //  ZXPSignCmd -sign <inputDirectory> <outputZxp> <p12> <p12Password> -tsa <timestampURL>
         exec(`${process.env.ZXPSignCmd_PATH} -sign ${process.env.INPUT_DIRECTORY} ${process.env.OUTPUT_ZXP} ${process.env.CERTIFICATE_OUTPUT_PATH} ${process.env.CERTIFICATE_PASSWORD} -tsa  ${process.env.TIMESTAMPS_URL}`, (err, stdout, stderr) => {
@@ -53,7 +55,7 @@ exec('npm run adobe-panel-build', (err, stdout, stderr) => {
                 console.error(err);
                 return;
             }
-            console.log(`packaged app in ${process.env.OUTPUT_ZXP}`);
+            console.log(`4. packaged app in ${process.env.OUTPUT_ZXP}`);
         });
     });
 });
