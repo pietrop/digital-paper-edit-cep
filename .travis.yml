@@ -1,7 +1,6 @@
 # Travis CI configuration to run automated test when pushing to github
 language: node_js
-node_js:
- - "10"
+node_js:node_js:  "12.13.0" # one of node js travis pre installed versions
 
 install:
   - node --version
@@ -11,6 +10,9 @@ install:
 
 script:
   - npm run adobe-panel-package-sign-build
+  - ls ./dist;
+  - ls ./dist/com.dpe.it.zxp;
+  - find . | grep .zxp;
   - npm run travis_to_github_upload
   # TODO: some make command?
   # - npm run test:ci

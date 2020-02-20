@@ -1,4 +1,7 @@
-require("dotenv").config();
+// TODO: add if in dev use .env
+// otherwise doen't 
+// require("dotenv").config();
+
 // TODO: electron builder might already contain this
 // https://www.electron.build/configuration/publish
 
