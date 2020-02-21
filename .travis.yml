@@ -10,6 +10,7 @@ install:
 
 script:
   - npm run test
+  - ls $ZXPSignCmd_PATH;
   - npm run adobe-panel-package-sign-build
   # - ls ./dist;
   # - ls ./dist/com.dpe.it.zxp;
