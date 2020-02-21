@@ -59,19 +59,16 @@ You can then open the local server for the adobe panel which is at http://localh
 
 ## Usage - production
 
-_TBC_
+Follow installation [instructions from user manual under DPE Adobe Panel, CEP](https://autoedit.gitbook.io/digital-paper-edit-user-manual/digital-paper-edit-adobe-panel/install)
 
 <!-- To install the packaged extension in Adobe Premiere, [see user manual instructions](https://autoedit.gitbook.io/digital-paper-edit-user-manual/digital-paper-edit-adobe-panel/install) -->
-
-
  
 
 ## System Architecture
 <!-- _High level overview of system architecture_ -->
 
-Adobe CEP paenl 
+For more on how Adobe CEP panels work, [see the previous autoEdit2, adobe panel docs](https://autoedit.gitbook.io/documentation/adobe-panel/autoedit-adobe-cep-panel-dev-setup) that where used as a base for this version.
 
- _TBC_
 
 ## Development env
  <!-- _How to run the development environment_
@@ -92,35 +89,30 @@ To set to the node version `v11.15.0`
 
 ## Build
 <!-- _How to run build_ -->
-
-_TBC_
-
-<!-- ```
+```
 npm run adobe-panel-build
-``` -->
+```
+This creates a `.zxp` file that be installed as a premiere extension (see link to user manual instructions above)
 
-<!-- ```
+or if you want to build and code sign do 
+```
 npm run adobe-panel-package-sign-build
-``` -->
+```
 
- -->
+Optionally to then uppload to github releases section of the repo you can run this command 
+```
+npm run travis_to_github_upload
+```
+
+## Deployment
+Done via Travis [travis-ci.org/pietrop/digital-paper-edit-cep](https://travis-ci.org/pietrop/digital-paper-edit-cep) it builds, code sign and adds to release section of this repo [github.com/pietrop/digital-paper-edit-cep/releases](https://github.com/pietrop/digital-paper-edit-cep/releases)
 
 ## Tests
 <!-- _How to carry out tests_ -->
 
  _TBC_
 
-## Deployment
-<!-- _How to deploy the code/app into test/staging/production_ -->
 
-_TBC_
-
-<!-- Travis or  
- ```
-npm run adobe-panel-package-sign-build
-``` -->
-
-<!-- Travis into releases + manual adobe exchange? - optional -->
 
 
 ## Contributing
