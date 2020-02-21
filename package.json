@@ -1,6 +1,6 @@
 {
   "name": "digital-paper-edit-cep",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.5",
   "description": "Adobe CEP (Common Extensibility Platform) Panel - Premiere Plugin For Digital Paper Edit App ",
   "main": "index.js",
   "directories": {
@@ -20,7 +20,7 @@
     "adobe-panel-dev-react-client": "sync-files node_modules/@pietrop/digital-paper-edit-client ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/digital-paper-edit-client",
     "adobe-panel-dev": "npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug  && npm run adobe-panel-dev-react-client && npm run adobe-panel-dev-node_modules",
     "adobe-panel-dev:watch": "onchange ./src/** ./package.json ./lib/** -- npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug && echo 'finished syncing'",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files .debug adobe-panel-build/.debug &&  sync-files ./package.json adobe-panel-build/package.json && sync-files src  adobe-panel-build/src &&  sync-files node_modules adobe-panel-build/node_modules && sync-files node_modules/@pietrop/digital-paper-edit-client adobe-panel-build/digital-paper-edit-client",
     "adobe-panel-package-sign-build": "node ./scripts/sign-and-package-adobe-panel.js",
     "travis_to_github_upload:dev": "NODE_ENV='development' node  ./travis_to_github_upload.js",

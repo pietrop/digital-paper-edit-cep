@@ -9,8 +9,9 @@ install:
   - npm install
 
 script:
-  - npm run adobe-panel-package-sign-build
-  - ls ./dist;
-  - ls ./dist/com.dpe.it.zxp;
-  - find . | grep .zxp;
-  - npm run travis_to_github_upload
+  - npm run test
+  # - npm run adobe-panel-package-sign-build
+  # - ls ./dist;
+  # - ls ./dist/com.dpe.it.zxp;
+  # - find . | grep .zxp;
+  # - npm run travis_to_github_upload
