@@ -71,10 +71,21 @@ $._PPP = {
     for (var i = 0; i < clipEvents.length; i++) {
       var papercut = clipEvents[i];
       // https://forums.adobe.com/thread/2455401
+      // https://community.adobe.com/t5/premiere-pro/associate-source-monitor-and-project-item/td-p/9725299?page=1
+      var ignoreSubClips = 1;
       var arrayOfProjectItemsReferencingSomePath = app.project.rootItem.findItemsMatchingMediaPath(
         papercut.clipName,
-        1
+        ignoreSubClips
       );
+      // if it doesn't find the clip in the root of the project, this looks inside the bins in the project
+      // UPDATE" not sure if this is actually doing anything?
+      if(arrayOfProjectItemsReferencingSomePath === 0 ){
+        alert('here!')
+        var currentItem = project.rootItem;
+        var nameToFind = papercut.clipName;
+        $._PPP_.searchBinForProjItemByName(0, currentItem, nameToFind)
+      }
+
       var clipInProjectPanel = arrayOfProjectItemsReferencingSomePath[0];
       // TODO: need to had catch for what happens if file is not in project panel.
       // eg either return error, eg alert cannot continue add clip to project panel
@@ -124,6 +135,17 @@ $._PPP = {
       } else {
         vTrack1.insertClip(clipInProjectPanel, lastClipEndTime);
       }
+    }
+  },
+  // https://community.adobe.com/t5/premiere-pro/finding-a-bin-with-project-finditemsmatchingmediapath/td-p/8993301?page=1
+  searchBinForProjItemByName : function(i, currentItem, nameToFind){
+    for (var j = i; j < currentItem.children.numItems; j++){
+        var currentChild = currentItem.children;              
+        if (currentChild.type == ProjectItemType.BIN){
+            return $._PPP_.searchBinForProjItemByName(0, currentChild, nameToFind);
+        } else if (currentChild.name == nameToFind){
+            return currentChild;
+        }
     }
   },
 

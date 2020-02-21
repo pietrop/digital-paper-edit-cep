@@ -1,7 +1,9 @@
 // TODO: add if in dev use .env
 // otherwise doen't 
-// require("dotenv").config();
-
+console.log(process.env.NODE_ENV)
+if(process.env.NODE_ENV ==='development'){
+  require("dotenv").config();
+}
 // TODO: electron builder might already contain this
 // https://www.electron.build/configuration/publish
 

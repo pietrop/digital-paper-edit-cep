@@ -23,6 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files .debug adobe-panel-build/.debug &&  sync-files ./package.json adobe-panel-build/package.json && sync-files src  adobe-panel-build/src &&  sync-files node_modules adobe-panel-build/node_modules && sync-files node_modules/@pietrop/digital-paper-edit-client adobe-panel-build/digital-paper-edit-client",
     "adobe-panel-package-sign-build": "node ./scripts/sign-and-package-adobe-panel.js",
+    "travis_to_github_upload:dev": "NODE_ENV='development' node  ./travis_to_github_upload.js",
     "travis_to_github_upload": "node  ./travis_to_github_upload.js"
   },
   "repository": {
@@ -42,7 +43,7 @@
     "sync-files": "^1.0.3"
   },
   "dependencies": {
-    "@pietrop/digital-paper-edit-client": "^1.3.3-alpha.34",
+    "@pietrop/digital-paper-edit-client": "^1.3.3-alpha.36",
     "assemblyai": "^1.0.1",
     "bootstrap-css-only": "^4.3.1",
     "diskdb": "^0.1.17",

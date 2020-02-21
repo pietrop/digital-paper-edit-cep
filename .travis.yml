@@ -1,6 +1,6 @@
 # Travis CI configuration to run automated test when pushing to github
 language: node_js
-node_js:node_js:  "12.13.0" # one of node js travis pre installed versions
+node_js: "12.13.0" # one of node js travis pre installed versions
 
 install:
   - node --version
