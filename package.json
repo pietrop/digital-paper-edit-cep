@@ -1,6 +1,6 @@
 {
   "name": "digital-paper-edit-cep",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "Adobe CEP (Common Extensibility Platform) Panel - Premiere Plugin For Digital Paper Edit App ",
   "main": "index.js",
   "directories": {
