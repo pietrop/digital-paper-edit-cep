@@ -1,0 +1,1 @@
+see [autoEdit Adobe CEP Panel dev setup](https://autoedit.gitbook.io/documentation/adobe-panel/autoedit-adobe-cep-panel-dev-setup)

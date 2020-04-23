@@ -3,6 +3,9 @@
  * https://autoedit.gitbook.io/documentation/adobe-panel/autoedit-adobe-cep-panel-dev-setup
  * and https://autoedit.gitbook.io/documentation/adobe-panel/adobe-cep-jsx-functions-for-autoedit-adobe-panel
  */
+// from https://community.adobe.com/t5/premiere-pro/jsx-intermittently-getting-json-is-undefined-alert/td-p/9500726
+// adding support for json 
+//@include ./json2.jsx
 if (typeof $ == "undefined") $ = {};
 $._PPP = {
   say: function(something) {
@@ -24,7 +27,8 @@ $._PPP = {
 
   create_sequence_from_paper_edit: function(options) {
     var options = JSON.parse(options);
-    var paperEdit = options.edlJson;
+
+    var paperEditEvents = options.edlJson.events;
     var sequenceName = options.edlJson.title;
     // Create sequence
     var createAnewSequenceBool;
@@ -62,25 +66,34 @@ $._PPP = {
     // TODO: data structure from  `getEDLJsonDataFromDom`
     // but cannot figure out why it arrives in reversed order here, it seems fine in EDL file creation
     // which uses same function
-    var clipEvents = paperEdit.events.reverse();
+    var clipEvents = paperEditEvents.reverse();
     // find clips from paper-edit events in project panel browser
     for (var i = 0; i < clipEvents.length; i++) {
       var papercut = clipEvents[i];
       // https://forums.adobe.com/thread/2455401
+      // https://community.adobe.com/t5/premiere-pro/associate-source-monitor-and-project-item/td-p/9725299?page=1
+      var ignoreSubClips = 1;
       var arrayOfProjectItemsReferencingSomePath = app.project.rootItem.findItemsMatchingMediaPath(
         papercut.clipName,
-        1
+        ignoreSubClips
       );
+      // if it doesn't find the clip in the root of the project, this looks inside the bins in the project
+      // UPDATE" not sure if this is actually doing anything?
+      if(arrayOfProjectItemsReferencingSomePath === 0 ){
+        alert('here!')
+        var currentItem = project.rootItem;
+        var nameToFind = papercut.clipName;
+        $._PPP_.searchBinForProjItemByName(0, currentItem, nameToFind)
+      }
+
       var clipInProjectPanel = arrayOfProjectItemsReferencingSomePath[0];
       // TODO: need to had catch for what happens if file is not in project panel.
       // eg either return error, eg alert cannot continue add clip to project panel
       // or look for projec ton file system using path?
-
       // If it is not in project panel. Use file path to see if it is on file system and can import in premiere
       if (arrayOfProjectItemsReferencingSomePath.length === 0) {
         // if filePath exisists then import into proejct
         var filePath = new File(papercut.filePath);
-        alert(papercut.filePath);
         if (filePath.exists) {
           // app.sourceMonitor.openFilePath(options.filePath);
           // playTc(options.timecode);
@@ -124,10 +137,21 @@ $._PPP = {
       }
     }
   },
+  // https://community.adobe.com/t5/premiere-pro/finding-a-bin-with-project-finditemsmatchingmediapath/td-p/8993301?page=1
+  searchBinForProjItemByName : function(i, currentItem, nameToFind){
+    for (var j = i; j < currentItem.children.numItems; j++){
+        var currentChild = currentItem.children;              
+        if (currentChild.type == ProjectItemType.BIN){
+            return $._PPP_.searchBinForProjItemByName(0, currentChild, nameToFind);
+        } else if (currentChild.name == nameToFind){
+            return currentChild;
+        }
+    }
+  },
 
   get_user_data_path: function() {
-    //  alert(Folder.userData.fsName+"/autoEdit2");
-    return Folder.userData.fsName + "/autoEdit2";
+    // alert("get_user_data_path::"+Folder.userData.fsName)
+    return Folder.userData.fsName + "/digital-paper-edit-electron";
   },
 
   open_file_in_source_monitor_and_play_if_present: function(options) {

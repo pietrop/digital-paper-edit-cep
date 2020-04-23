@@ -32,7 +32,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+build/
 
 # Dependency directories
 node_modules/
@@ -128,8 +128,9 @@ ccextensionsmac/certificate.p12
 # ccextensionsmac/ZXPSignCmd
 
 # Packaged app for Adobe CEP Panel Exchange site submission or distribution.
-dist/com.autoedit2.it.zxp
+dist/com.dpe.it.zxp
 
+dist/
 
 # dotenv ENV var
 .env

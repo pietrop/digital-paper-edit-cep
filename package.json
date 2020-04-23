@@ -1,0 +1,57 @@
+{
+  "name": "digital-paper-edit-cep",
+  "version": "1.0.0-alpha.7",
+  "description": "Adobe CEP (Common Extensibility Platform) Panel - Premiere Plugin For Digital Paper Edit App ",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "11.15.0",
+    "npm": "6.7.0"
+  },
+  "scripts": {
+    "adobe-panel-dev-lib": "sync-files lib ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel",
+    "adobe-panel-dev-packagejson": "sync-files ./package.json ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/package.json",
+    "adobe-panel-dev-node_modules": "sync-files node_modules ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/node_modules",
+    "adobe-panel-dev-src": "sync-files src ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/src",
+    "adobe-panel-dev-debug": "sync-files .debug ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/.debug",
+    "adobe-panel-dev-react-client": "sync-files node_modules/@pietrop/digital-paper-edit-client ~/Library/Application\\ Support/Adobe/CEP/extensions/dpe-panel/digital-paper-edit-client",
+    "adobe-panel-dev": "npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug  && npm run adobe-panel-dev-react-client && npm run adobe-panel-dev-node_modules",
+    "adobe-panel-dev:watch": "onchange ./src/** ./package.json ./lib/** -- npm run adobe-panel-dev-lib && npm run adobe-panel-dev-packagejson && npm run adobe-panel-dev-src && npm run adobe-panel-dev-debug && echo 'finished syncing'",
+    "test": "echo \"Error: no test specified\"",
+    "adobe-panel-build": "sync-files lib adobe-panel-build  && sync-files .debug adobe-panel-build/.debug &&  sync-files ./package.json adobe-panel-build/package.json && sync-files src  adobe-panel-build/src &&  sync-files node_modules adobe-panel-build/node_modules && sync-files node_modules/@pietrop/digital-paper-edit-client adobe-panel-build/digital-paper-edit-client",
+    "adobe-panel-package-sign-build": "node ./sign-and-package-adobe-panel.js",
+    "travis_to_github_upload:dev": "NODE_ENV='development' node  ./travis_to_github_upload.js",
+    "travis_to_github_upload": "node  ./travis_to_github_upload.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pietrop/digital-paper-edit-cep.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pietrop/digital-paper-edit-cep/issues"
+  },
+  "homepage": "https://github.com/pietrop/digital-paper-edit-cep#readme",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "gh-release-assets": "^1.1.2",
+    "onchange": "^6.1.0",
+    "sync-files": "^1.0.3"
+  },
+  "dependencies": {
+    "@pietrop/digital-paper-edit-client": "^1.4.7",
+    "assemblyai": "^1.0.1",
+    "bootstrap-css-only": "^4.3.1",
+    "diskdb": "^0.1.17",
+    "ffmpeg-static-electron": "^2.0.1",
+    "ffprobe-static-electron": "^2.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "react": "^16.11.0",
+    "react-bootstrap": "^1.0.0-beta.14",
+    "react-dom": "^16.10.2"
+  }
+}
